@@ -6,11 +6,13 @@ class LoginPage(BasePage):
         super().__init__(page)
         self.email_input = "input[placeholder='Email']"
         self.password_input = "input[placeholder='Password']"
+        self.login_link = "a[href='/login']"
         self.login_button = "button:has-text('Sign in')"
         self.error_message = "ul.error-messages li"
 
     def navigate(self):
-        self.visit("https://conduit.bondaracademy.com/login")
+        self.visit("https://conduit.bondaracademy.com")
+        self.click(self.login_link)
 
     def login(self, email, password):
         self.fill(self.email_input, email)
