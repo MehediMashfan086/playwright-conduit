@@ -1,6 +1,6 @@
 import time
 
-from pages.create_article_page import CreateArticlePage
+from pages.article_page import ArticlePage
 from pages.login_page import LoginPage
 from utils.api_helper import create_article
 from utils.data_generator import random_string
@@ -23,7 +23,7 @@ def test_create_article_via_api_after_ui_login(page):
     article = create_article(token, title, desc, body, tags)
 
     page.goto(f"https://conduit.bondaracademy.com/article/{article['slug']}")
-    article_page = CreateArticlePage(page)
+    article_page = ArticlePage(page)
     article_page.expect_title_visible(title)
 
     page.screenshot(path="screenshots/article_created_via_api_after_ui.png")
