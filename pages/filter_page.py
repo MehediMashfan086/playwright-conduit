@@ -6,10 +6,12 @@ from pages.base_page import BasePage
 
 
 class FilterPage(BasePage):
-    tag_list = ".tag-list a"
-    feed_toggle = ".feed-toggle li.nav-item a.active"
-    article_preview = ".article-preview"
-    new_article = "a:has-text('New Article')"
+    def __init__(self, page):
+        super().__init__(page)
+        self.tag_list = ".tag-list a"
+        self.feed_toggle = ".feed-toggle li.nav-item a.active"
+        self.article_preview = ".article-preview"
+        self.new_article = "a:has-text('New Article')"
 
     def go_to_home(self):
         self.visit("https://conduit.bondaracademy.com/")
