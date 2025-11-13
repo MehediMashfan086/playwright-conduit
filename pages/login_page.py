@@ -9,6 +9,7 @@ class LoginPage(BasePage):
         self.login_link = "a[href='/login']"
         self.login_button = "button:has-text('Sign in')"
         self.error_message = "ul.error-messages li"
+        self.logged_in_text = "a:has-text('New Article')"
 
     def navigate(self):
         self.visit("https://conduit.bondaracademy.com")
@@ -21,3 +22,6 @@ class LoginPage(BasePage):
 
     def get_error_message(self):
         return self.get_text(self.error_message)
+
+    def get_logged_in_text(self):
+        return self.get_text(self.logged_in_text)
