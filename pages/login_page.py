@@ -25,3 +25,9 @@ class LoginPage(BasePage):
 
     def expect_logged_in(self):
         self.expect_visible(self.logged_in_text)
+
+    def get_auth_token_from_browser(self):
+        # Extract JWT token from localStorage after UI login.
+
+        token = self.page.evaluate("() => window.localStorage.getItem('jwtToken')")
+        return token

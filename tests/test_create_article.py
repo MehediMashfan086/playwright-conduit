@@ -1,20 +1,31 @@
+import time
+
 from pages.create_article_page import CreateArticlePage
 from pages.login_page import LoginPage
+from utils.api_helper import create_article
 from utils.data_generator import random_string
 
 
-def test_create_article(page):
+def test_create_article_via_api_after_ui_login(page):
     login_page = LoginPage(page)
     login_page.navigate()
     login_page.login("mehedi_test@gmail.com", "Pass@123")
     login_page.expect_logged_in()
 
-    create_article = CreateArticlePage(page)
-    title = f"Article_By_Mehedi_{random_string()}"
-    desc = f"This is about of the article {random_string()}"
-    body = f"This is body of the article {random_string()}"
-    tags = ["playwright", "python", "mehedi"]
-    create_article.create_article_ui(title, desc, body, tags)
-    create_article.expect_title_visible(title)
+    token = login_page.get_auth_token_from_browser()
+    assert token is not None, "Failed to get token from browser localStorage"
 
-    create_article.page.screenshot(path="screenshots/article_created.png")
+    title = f"Hybrid_API_Article_{random_string()}"
+    desc = f"This is about article created via API after UI login {random_string()}"
+    body = f"This is the body of the hybrid test article {random_string()}"
+    tags = ["api", "hybrid", "playwright", "mehedi"]
+
+    article = create_article(token, title, desc, body, tags)
+
+    page.goto(f"https://conduit.bondaracademy.com/article/{article['slug']}")
+    article_page = CreateArticlePage(page)
+    article_page.expect_title_visible(title)
+
+    page.screenshot(path="screenshots/article_created_via_api_after_ui.png")
+
+    print(f"Article created successfully via API after UI login: {article['slug']}")
