@@ -20,8 +20,8 @@ class LoginPage(BasePage):
         self.fill(self.password_input, password)
         self.click(self.login_button)
 
-    def get_error_message(self):
-        return self.get_text(self.error_message)
+    def expect_invalid_logged_in(self):
+        self.get_text(self.error_message)
 
-    def get_logged_in_text(self):
-        return self.get_text(self.logged_in_text)
+    def expect_logged_in(self):
+        self.expect_visible(self.logged_in_text)
