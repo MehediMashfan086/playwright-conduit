@@ -17,6 +17,7 @@ class ArticlePage(BasePage):
         self.edit_button = (
             "div.article-actions a.btn.btn-outline-secondary:has-text('Edit Article')"
         )
+        self.delete_button = "div.article-actions button.btn.btn-outline-danger"
 
     def edit_article_ui(self, new_title, new_desc, new_body):
         self.click(self.edit_button)
@@ -26,6 +27,13 @@ class ArticlePage(BasePage):
         self.fill(self.desc_input, new_desc)
         self.fill(self.body_input, new_body)
         self.click(self.publish_button)
+
+    def delete_article_ui(self):
+        self.click(self.delete_button)
+
+    def expect_article_deleted(self):
+        expect(self.page).to_have_url("https://conduit.bondaracademy.com/")
+        expect(self.page.locator("a.nav-link", has_text="Global Feed")).to_be_visible()
 
     def expect_title_visible(self, title):
         expect(self.page.locator(self.article_title)).to_be_visible(timeout=8000)
