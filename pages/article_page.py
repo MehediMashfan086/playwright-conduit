@@ -38,11 +38,11 @@ class ArticlePage(BasePage):
 
     def expect_article_deleted(self):
         expect(self.page).to_have_url(
-            "https://conduit.bondaracademy.com/", timeout=8000
+            "https://conduit.bondaracademy.com/", timeout=10000
         )
-        expect(self.page.locator("div.home-page")).to_be_visible(timeout=8000)
-        expect(self.page.get_by_text("Popular Tags")).to_be_visible(timeout=8000)
+        expect(self.page.locator("div.home-page")).to_be_visible(timeout=10000)
+        expect(self.page.get_by_text("Popular Tags")).to_be_visible(timeout=10000)
 
     def expect_title_visible(self, title):
-        expect(self.article_title).to_be_visible(timeout=8000)
-        expect(self.article_title).to_have_text(title, timeout=8000)
+        expect(self.article_title).to_be_visible(timeout=10000)
+        expect(self.article_title).to_have_text(title, timeout=20000)

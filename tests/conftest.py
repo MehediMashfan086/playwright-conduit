@@ -10,6 +10,9 @@ from utils import config, logger
 log = logger.get_logger()
 
 
+BROWSERS = ["chromium", "firefox", "webkit"]
+
+
 @pytest.fixture(scope="session", autouse=True)
 def ensure_login_state():
     state_dir = "auth"
@@ -21,8 +24,8 @@ def ensure_login_state():
         return
 
     log.info(".... Logging in once to create new session....")
-
     # Determine headless mode (force True in CI)
+
     if os.getenv("CI"):
         headless = True
     else:
@@ -47,15 +50,19 @@ def ensure_login_state():
         browser.close()
 
 
-@pytest.fixture(scope="session")
-def browser():
-    if os.getenv("CI"):
-        headless = True
-    else:
-        headless = config.HEADLESS
+# Fixture for cross-browser testing
+@pytest.fixture(params=BROWSERS, scope="session")
+def browser_type(request):
+    return request.param
 
+
+@pytest.fixture(scope="session")
+def browser(browser_type):
+    headless = True if os.getenv("CI") else config.HEADLESS
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=headless, args=["--start-maximized"])
+        browser = getattr(p, browser_type).launch(
+            headless=headless, args=["--start-maximized"]
+        )
         yield browser
         browser.close()
 

@@ -9,7 +9,7 @@ def test_update_setings(page):
     settings_page.go_to_home()
     settings_page.navigate()
     settings_page.update_settings(
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaZnF8ElwCzCgHGTNVnaElToLnw3zE4AgEVQ&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkY36XkesV2esKBb7ds9iQinTHYG9R8pOGqQ&s",
         "mehedi086",
         "Software QA Automation Engineer",
         "mehedi_test@gmail.com",
