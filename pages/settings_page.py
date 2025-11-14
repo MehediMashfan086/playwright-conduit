@@ -7,15 +7,15 @@ log = logger.get_logger()
 class SettingsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.settings_text = "a:has-text('Settings')"
-        self.settings_link = "a[href='/settings']"
-        self.url_of_pp_input = "input[placeholder='URL of profile picture']"
-        self.username_input = "input[placeholder='Username']"
-        self.short_bio_input = "textarea[placeholder='Short bio about you']"
-        self.email_input = "input[placeholder='Email']"
-        self.new_password_input = "input[placeholder='New Password']"
+        self.settings_text = page.get_by_role("link", name="Settings")
+        self.settings_link = page.get_by_role("link", name="Settings")
+        self.url_of_pp_input = page.get_by_placeholder("URL of profile picture")
+        self.username_input = page.get_by_placeholder("Username")
+        self.short_bio_input = page.get_by_placeholder("Short bio about you")
+        self.email_input = page.get_by_placeholder("Email")
+        self.new_password_input = page.get_by_placeholder("New Password")
         self.update_settings_button = "button:has-text('Update Settings')"
-        self.update_settings_done_text = "a:has-text('My Posts')"
+        self.update_settings_done_text = page.get_by_role("link", name="My Posts")
 
     def go_to_home(self):
         self.visit("https://conduit.bondaracademy.com/")

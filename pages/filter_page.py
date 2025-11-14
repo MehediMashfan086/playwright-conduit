@@ -14,7 +14,7 @@ class FilterPage(BasePage):
         self.tag_list = ".tag-list a"
         self.feed_toggle = ".feed-toggle li.nav-item a.active"
         self.article_preview = ".article-preview"
-        self.new_article = "a:has-text('New Article')"
+        self.new_article = page.get_by_role("link", name="New Article")
 
     def go_to_home(self):
         self.visit("https://conduit.bondaracademy.com/")
