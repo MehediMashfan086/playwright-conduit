@@ -60,9 +60,10 @@ def browser_type(request):
 def browser(browser_type):
     headless = True if os.getenv("CI") else config.HEADLESS
     with sync_playwright() as p:
-        browser = getattr(p, browser_type).launch(
-            headless=headless, args=["--start-maximized"]
+        browser_args = (
+            ["--start-maximized"] if browser_type in ["chromium", "firefox"] else []
         )
+        browser = getattr(p, browser_type).launch(headless=headless, args=browser_args)
         yield browser
         browser.close()
 
