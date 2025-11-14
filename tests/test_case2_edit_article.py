@@ -28,4 +28,6 @@ def test_edit_article_after_api_creation(page):
 
     article_page.edit_article_ui(new_title, new_desc, new_body)
     article_page.expect_title_visible(new_title)
+
+    page.screenshot(path="screenshots/article_edited_via_ui.png")
     log.info(".... Edited article verified successfully! ....")

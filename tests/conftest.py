@@ -34,10 +34,12 @@ def ensure_login_state():
         page = context.new_page()
 
         page.goto("https://conduit.bondaracademy.com/login")
-        page.fill("input[placeholder='Email']", "mehedi_test@gmail.com")
-        page.fill("input[placeholder='Password']", "Pass@123")
-        page.click("button:has-text('Sign in')")
-        page.wait_for_selector("a:has-text('New Article')", timeout=10000)
+        page.fill(page.get_by_placeholder("Email"), "mehedi_test@gmail.com")
+        page.fill(page.get_by_placeholder("Password"), "Pass@123")
+        page.click(page.get_by_role("button", name="Sign in"))
+        page.wait_for_selector(
+            page.get_by_role("link", name="New Article"), timeout=10000
+        )
 
         context.storage_state(path=state_file)
         log.info(f".... Login successful. Session saved at {state_file} ....")
