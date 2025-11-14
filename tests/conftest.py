@@ -5,7 +5,9 @@ import pytest
 from playwright.sync_api import sync_playwright
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from utils import config
+from utils import config, logger
+
+log = logger.get_logger()
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -15,10 +17,10 @@ def ensure_login_state():
     os.makedirs(state_dir, exist_ok=True)
 
     if os.path.exists(state_file):
-        print("Using existing authenticated session")
+        log.info(".... Using existing authenticated session ....")
         return
 
-    print("Logging in once to create new session...")
+    log.info(".... Logging in once to create new session....")
 
     # Determine headless mode (force True in CI)
     if os.getenv("CI"):
@@ -38,7 +40,7 @@ def ensure_login_state():
         page.wait_for_selector("a:has-text('New Article')", timeout=10000)
 
         context.storage_state(path=state_file)
-        print(f"Login successful. Session saved at {state_file}")
+        log.info(f".... Login successful. Session saved at {state_file} ....")
 
         browser.close()
 

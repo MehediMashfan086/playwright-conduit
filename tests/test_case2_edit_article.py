@@ -1,6 +1,9 @@
 from pages.article_page import ArticlePage
+from utils import logger
 from utils.api_helper import create_article
 from utils.data_generator import random_string
+
+log = logger.get_logger()
 
 
 def test_edit_article_after_api_creation(page):
@@ -14,7 +17,7 @@ def test_edit_article_after_api_creation(page):
     tags = ["api", "edit", "playwright"]
 
     article = create_article(token, title, desc, body, tags)
-    print(f"Article created via API: {article['slug']}")
+    log.info(f".... Article created via API: {article['slug']} ....")
 
     page.goto(f"https://conduit.bondaracademy.com/article/{article['slug']}")
     article_page = ArticlePage(page)
@@ -25,4 +28,4 @@ def test_edit_article_after_api_creation(page):
 
     article_page.edit_article_ui(new_title, new_desc, new_body)
     article_page.expect_title_visible(new_title)
-    print("Edited article verified successfully!")
+    log.info(".... Edited article verified successfully! ....")

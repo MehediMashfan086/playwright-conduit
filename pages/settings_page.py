@@ -1,4 +1,7 @@
 from pages.base_page import BasePage
+from utils import logger
+
+log = logger.get_logger()
 
 
 class SettingsPage(BasePage):
@@ -17,7 +20,7 @@ class SettingsPage(BasePage):
     def go_to_home(self):
         self.visit("https://conduit.bondaracademy.com/")
         self.expect_visible(self.settings_text)
-        print("Logged in successfully using saved session")
+        log.info(".... Logged in successfully using saved session ....")
 
     def navigate(self):
         self.click(self.settings_link)
@@ -29,8 +32,8 @@ class SettingsPage(BasePage):
         self.fill(self.email_input, email)
         self.fill(self.new_password_input, new_password)
         self.click(self.update_settings_button)
-        print("Settings update submitted")
+        log.info(".... Settings update submitted ....")
 
     def expect_settings_update_done(self):
         self.expect_visible(self.update_settings_done_text)
-        print("Settings updated successfully")
+        log.info(".... Settings updated successfully ....")

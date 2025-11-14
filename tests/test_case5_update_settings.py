@@ -1,4 +1,7 @@
 from pages.settings_page import SettingsPage
+from utils import logger
+
+log = logger.get_logger()
 
 
 def test_update_setings(page):
@@ -14,3 +17,4 @@ def test_update_setings(page):
     )
     settings_page.expect_settings_update_done()
     settings_page.page.screenshot(path="screenshots/expect_settings_update_done.png")
+    log.info(".... Settings Update Completed Successfully ....")

@@ -1,4 +1,7 @@
 from pages.filter_page import FilterPage
+from utils import logger
+
+log = logger.get_logger()
 
 
 def test_filter_articles_by_tag(page):
@@ -10,4 +13,4 @@ def test_filter_articles_by_tag(page):
     filter_page.verify_articles_loaded()
     filter_page.take_screenshot(tag_text)
 
-    print(".... TEST COMPLETED SUCCESSFULLY ....")
+    log.info(".... TAG FILTER COMPLETED SUCCESSFULLY ....")
